@@ -63,7 +63,9 @@ class MenuView(Menu):
         print(f'{self.parent.name} > {self.name}' if self.parent else self.name)
         print(f'{self.description}')
         print("\nMenu items:")
-        for id_menu, sub_menu in enumerate(self.children):
+        # To separate and choose children who fit some criteria.
+        eligible_children = list(filter(lambda child: child.condition(), self.children))
+        for id_menu, sub_menu in enumerate(eligible_children):
             print(f"\t{id_menu + 1}.{repr(sub_menu)}")
 
         def validator(s: str):
